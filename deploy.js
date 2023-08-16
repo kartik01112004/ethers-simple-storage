@@ -21,12 +21,31 @@
 // Fulfilled
 // Rejected
 
+const ethers = require("ethers");
+const fs = require("fs-extra");
+
 async function main() {
   //compile in code
   //compile separately
   // yarn solcjs --bin --abi --inlude-path node_modules/ --base-path . -o . SimpleStorage.sol
   //use to deploy3333
+  //http://127.0.0.1:7545
+  const provider = new ethers.JasonRpcProvider("http://127.0.0.1:7545");
+  const wallet = new ethers.Wallet(
+    "0x98cc2e385dbf4dd558e18ca57ae2d1ef041b47b5ae8e1c4195287fcd662a270a",
+    provider
+  );
+  const abi = fs.readFileSync("./SimpleStorage_sol_SimpleStorage.abi", "utf8");
+  const binary = fs.readFileSync(
+    "./SimpleStorage_sol_SimpleStrage.bin",
+    "utf8"
+  );
+  const contractFactory = new ethers.ContractFactory(abi, binary, wallet);
+  console.log("Deploying, please wait!..");
+  const contract = await contractFactory.deploy();
+  console.log(contract);
 }
+
 main()
   .then(() => process.exit(0))
   .catch((error) => {
