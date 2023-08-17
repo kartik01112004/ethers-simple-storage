@@ -1,3 +1,3 @@
 # ethers-simple-storage
 
-//rpc url
+change server of ganache to vEthernet(WSL) to run in wsl after doing yarn add ganache
